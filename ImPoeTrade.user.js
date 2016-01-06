@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            ImPoeTrade
 // @namespace       https://github.com/Sefriol/ImpPoETrade/wiki/Improved-PoE-Trade
-// @version         0.5
+// @version         0.6
 // @description     Script provides small improvements to poe.trade community website
 // @author          Sefriol
 // @match           http://tampermonkey.net/index.php?ext=dhdg
@@ -35,9 +35,9 @@ function exportItems() {
 }
 
 var script = document.createElement('script');
-script.appendChild(document.createTextNode('('+ itemHider +')();'));
-script.appendChild(document.createTextNode('('+ showItems +')();'));
-script.appendChild(document.createTextNode('('+ exportItems +')();'));
+script.appendChild(document.createTextNode(itemHider));
+script.appendChild(document.createTextNode(showItems));
+script.appendChild(document.createTextNode(exportItems));
 (document.body || document.head || document.documentElement).appendChild(script);
 
 $("[id^=item-container]").find('[class^=first-cell]').append("<a class='button secondary expand' onclick='itemHider(this);' style='margin:0;'>Remove</a>");
