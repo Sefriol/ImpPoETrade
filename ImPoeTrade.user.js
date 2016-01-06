@@ -1,17 +1,41 @@
 // ==UserScript==
-// @name         ImPoeTrade
-// @namespace    http://tampermonkey.net/
-// @version      0.2
-// @description  Script provides small improvements to poe.trade community website
-// @author       Sefriol
-// @match        http://tampermonkey.net/index.php?ext=dhdg
-// @match        http://poe.trade/*
-// @grant        none
-// @updateURL       https://github.com/Sefriol/ImpPoETrade/master/ImPoeTrade.user.js
+// @name            ImPoeTrade
+// @namespace       http://tampermonkey.net/
+// @version         0.2
+// @description     Script provides small improvements to poe.trade community website
+// @author          Sefriol
+// @match           http://tampermonkey.net/index.php?ext=dhdg
+// @match           http://poe.trade/*
+// @grant           none
+// @updateURL       https://github.com/Sefriol/ImpPoETrade/raw/master/ImPoeTrade.user.js
 // @downloadURL     https://github.com/Sefriol/ImpPoETrade/master/ImPoeTrade.user.js
-// @homepageURL     https://github.com/Sefriol/ImpPoETrade/
+// @homepageURL     https://github.com/Sefriol/ImpPoETrade/wiki/Improved-PoE-Trade
+// @run-at          document-start
 // ==/UserScript==
 /* jshint -W097 */
 'use strict';
-$("[id^=item-container]").find('[class^=first-cell]').append("<a class='button secondary expand' onclick='$(this).parent().parent().parent().hide();' style='margin:0;'>Remove</a>")
-$("[id^=mid-table").hide()
+
+function itemHider(item) {
+  $(item).parentsUntil($("[id^=search-results]"), ".item").hide();
+}
+function showItems() {
+  $("[id^=item-container]").show();
+}
+function exportItems() {
+  var messages = [];
+  var list = $("[id^=item-container]").filter(function() {
+    return $(this).css('display') !== "none";
+  });
+  $.each(list, function(o) {
+    var item = $(list[o]);
+    var bo = item.data("buyout") ? " listed for " + item.data("buyout") : "";
+    var message="@"+item.data("ign")+" Wtb "+item.data("name")+bo+" in "+item.data("league");
+    messages.push(message);
+  })
+  window.prompt("Copy message to clipboard by pressing Ctrl+C. Note: window.prompt limits messages to 2000 characters",messages)
+}
+
+$("[id^=item-container]").find('[class^=first-cell]').append("<a class='button secondary expand' onclick='itemHider(this);' style='margin:0;'>Remove</a>");
+$("[class^=search-results-block]").prepend("<a class='button secondary expand' onclick='showItems()' style='width:50%'>Show all hidden items</a>")
+$("[class^=search-results-block]").prepend("<a class='button secondary expand' onclick='exportItems()' style='width:50%'>Export shown items</a>")
+$("[id^=mid-table").hide();
