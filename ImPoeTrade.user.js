@@ -1,16 +1,15 @@
 // ==UserScript==
 // @name            ImPoeTrade
-// @namespace       http://tampermonkey.net/
-// @version         0.2
+// @namespace       https://github.com/Sefriol/ImpPoETrade/wiki/Improved-PoE-Trade
+// @version         0.5
 // @description     Script provides small improvements to poe.trade community website
 // @author          Sefriol
 // @match           http://tampermonkey.net/index.php?ext=dhdg
 // @match           http://poe.trade/*
 // @grant           none
 // @updateURL       https://github.com/Sefriol/ImpPoETrade/raw/master/ImPoeTrade.user.js
-// @downloadURL     https://github.com/Sefriol/ImpPoETrade/master/ImPoeTrade.user.js
+// @downloadURL     https://github.com/Sefriol/ImpPoETrade/raw/master/ImPoeTrade.user.js
 // @homepageURL     https://github.com/Sefriol/ImpPoETrade/wiki/Improved-PoE-Trade
-// @run-at          document-start
 // ==/UserScript==
 /* jshint -W097 */
 'use strict';
@@ -34,6 +33,12 @@ function exportItems() {
   })
   window.prompt("Copy message to clipboard by pressing Ctrl+C. Note: window.prompt limits messages to 2000 characters",messages)
 }
+
+var script = document.createElement('script');
+script.appendChild(document.createTextNode('('+ itemHider +')();'));
+script.appendChild(document.createTextNode('('+ showItems +')();'));
+script.appendChild(document.createTextNode('('+ exportItems +')();'));
+(document.body || document.head || document.documentElement).appendChild(script);
 
 $("[id^=item-container]").find('[class^=first-cell]').append("<a class='button secondary expand' onclick='itemHider(this);' style='margin:0;'>Remove</a>");
 $("[class^=search-results-block]").prepend("<a class='button secondary expand' onclick='showItems()' style='width:50%'>Show all hidden items</a>")
