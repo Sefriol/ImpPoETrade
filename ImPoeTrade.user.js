@@ -1,8 +1,7 @@
 // ==UserScript==
 // @name            ImPoeTrade
 // @namespace       https://github.com/Sefriol/ImpPoETrade/wiki/Improved-PoE-Trade
-// @version         0.9.7
-// @require         http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
+// @version         1.0.0
 // @description     Script provides small improvements to poe.trade community website
 // @author          Sefriol
 // @match           http://tampermonkey.net/index.php?ext=dhdg
@@ -11,6 +10,7 @@
 // @updateURL       https://github.com/Sefriol/ImpPoETrade/raw/master/ImPoeTrade.user.js
 // @downloadURL     https://github.com/Sefriol/ImpPoETrade/raw/master/ImPoeTrade.user.js
 // @homepageURL     https://github.com/Sefriol/ImpPoETrade/wiki/Improved-PoE-Trade
+// @run-at          document-end
 // ==/UserScript==
 /* jshint -W097 */
 /*global $:false */
