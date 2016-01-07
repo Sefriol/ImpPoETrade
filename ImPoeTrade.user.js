@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            ImPoeTrade
 // @namespace       https://github.com/Sefriol/ImpPoETrade/wiki/Improved-PoE-Trade
-// @version         0.9.2
+// @version         0.9.5
 // @require         http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @description     Script provides small improvements to poe.trade community website
 // @author          Sefriol
