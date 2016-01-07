@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            ImPoeTrade
 // @namespace       https://github.com/Sefriol/ImpPoETrade/wiki/Improved-PoE-Trade
-// @version         0.9.5
+// @version         0.9.7
 // @require         http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @description     Script provides small improvements to poe.trade community website
 // @author          Sefriol
@@ -89,14 +89,18 @@ function toggleStored() {
       storedItems = localStorage.getItem("storedTradeItems");
       if(storedItems !== null) {
         storedItems = JSON.parse(storedItems);
-        $.each(storedItems, function(o) {
-          $("[id=search-results-stored-items]").append(unescape(storedItems[o]));
-          $("[id=search-results-stored-items]").find('[id=button-remove]').remove();
-          $("[id=search-results-stored-items]").find('[id=button-add-storage]').remove();
-        });
-        $("[id=search-results-stored-items]").find('[class^=table-stats]').append("<a id='button-remove-storage'class='button secondary expand' onclick='removeItem(this);' style='margin:0; width:50%'>Remove from Storage</a>");
+        if (storedItems.length > 0) {
+          $.each(storedItems, function(o) {
+            $("[id=search-results-stored-items]").append(unescape(storedItems[o]));
+            $("[id=search-results-stored-items]").find('[id=button-remove]').remove();
+            $("[id=search-results-stored-items]").find('[id=button-add-storage]').remove();
+          });
+          $("[id=search-results-stored-items]").find('[class^=table-stats]').append("<a id='button-remove-storage'class='button secondary expand' onclick='removeItem(this);' style='margin:0; width:50%'>Remove from Storage</a>");
+        } else {
+          $("[id=search-results-stored-items]").prepend("<h2 style='text-align: center;'><a>You have nothing stored</a></h2>");
+        }
       } else {
-        $("[id=search-results-stored-items]").prepend("<h2><a>You have nothing stored</a></h2>");
+        $("[id=search-results-stored-items]").prepend("<h2 style='text-align: center;'><a>You have nothing stored</a></h2>");
       }
     } else {
       console.log('No support for storage');
@@ -123,7 +127,7 @@ function addItem(item) {
     $("[id=search-results-stored-items]").empty();
     $("[id=search-results-stored]").show();
     showStored = true;
-    $("[id=search-results-stored-items]").prepend("<h2><a>Your Browser doesn't support storage</a></h2>");
+    $("[id=search-results-stored-items]").prepend("<h2 style='text-align: center;'><a>Your Browser doesn't support storage</a></h2>");
   }
 }
 
@@ -143,7 +147,7 @@ function removeItem(item) {
     $("[id=search-results-stored-items]").empty();
     $("[id=search-results-stored]").show();
     showStored = true;
-    $("[id=search-results-stored-items]").prepend("<h2><a>Your Browser doesn't support storage</a></h2>");
+    $("[id=search-results-stored-items]").prepend("<h2 style='text-align: center;'><a>Your Browser doesn't support storage</a></h2>");
   }
 }
 
