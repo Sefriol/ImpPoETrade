@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            ImPoeTrade
 // @namespace       https://github.com/Sefriol/ImpPoETrade/wiki/Improved-PoE-Trade
-// @version         0.9
+// @version         0.9.2
 // @require         http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 // @description     Script provides small improvements to poe.trade community website
 // @author          Sefriol
@@ -95,7 +95,9 @@ function addItem(item) {
     if (typeof(storedItems)=='undefined' || storedItems==null) {
       storedItems = [];
     }
-    storedItems.push(escape($(item).parentsUntil($("[id^=search-results]"), ".item").clone().html()));
+    var temp = $('<div></div>');
+    $(item).parentsUntil($("[id^=search-results]"), ".item").clone().appendTo(temp);
+    storedItems.push(escape(temp.html()));
     localStorage.setItem("storedTradeItems", JSON.stringify(storedItems));
     if (showStored) {
       toggleStored();
@@ -114,8 +116,8 @@ function removeItem(item) {
       storedItems = [];
       return;
     }
-    console.log($(item).index(), $(item).parentsUntil($("[id^=search-results]"), ".item").index())
-    storedItems.splice($(item).parentsUntil($("[id^=search-results]"), ".item").index())
+    console.log($(item).index(), $(item).parentsUntil($("[id=search-results-stored-items]"), ".item").index(), $(item).parentsUntil($("[id=search-results-stored-items]"), ".item"))
+    storedItems.splice($(item).parentsUntil($("[id^=search-results]"), ".item").index(), 1)
     localStorage.setItem("storedTradeItems", JSON.stringify(storedItems));
     if (showStored) {
       showStored = false;
