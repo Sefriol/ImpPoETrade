@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            ImPoeTrade
 // @namespace       https://github.com/Sefriol/ImpPoETrade/wiki/Improved-PoE-Trade
-// @version         1.0.0
+// @version         1.0.1
 // @description     Script provides small improvements to poe.trade community website
 // @author          Sefriol
 // @match           http://tampermonkey.net/index.php?ext=dhdg
@@ -170,6 +170,15 @@ var hover = function(){
 
 };
 
+var css = document.styleSheets[0], className = "li.hover", rule = "{background: #1a1a1a}";
+
+if (css.insertRule) {
+    css.insertRule(className + rule, css.cssRules.length);
+} else if (css.addRule) {
+    css.addRule(className, rule, -1);
+}
+
+
 var script = document.createElement('script');
 script.appendChild(document.createTextNode('var offline='+JSON.stringify(offline)+';'));
 script.appendChild(document.createTextNode('var showStored='+showStored+';'));
@@ -191,6 +200,6 @@ $("[class^=search-results-block]").prepend("<div id='search-results-stored' styl
 $("[id=search-results-stored]").prepend("<table class='search-results' id='search-results-stored-items'>");
 $("[class^=search-results-block]").prepend("<a class='button secondary expand' onclick='showItems()' style='width:25%'>Show all hidden items</a>");
 $("[class^=search-results-block]").prepend("<a class='button secondary expand' onclick='exportItems()' style='width:25%'>Export shown items</a>");
-$("[class^=search-results-block]").prepend("<ul class='dropdown' style='width:25%;margin: 0px;display: inline-block;'><li class='button secondary expand'><a>Online filters</a><ul class='sub_menu hover' style='width: 100%; visibility: hidden; position: absolute; top: 100%; left: 0px; color: rgb(51, 51, 51); background-color: rgb(51, 51, 51); margin-left:0px; list-style-type: none !important'><li class='' onclick='toggleOffline(false)' style='background-color: #333;'><a>Hide offline</a></li><li class='' onclick='toggleOffline(true)'><a>Show offline</a></li><li class='' onclick='toggleOffline(\"top\")'><a>Online top</a></li><li class='' onclick='toggleOffline(\"reset\")'><a>Reset order</a></li></ul></li></ul>");
+$("[class^=search-results-block]").prepend("<ul class='dropdown' style='width:25%;margin: 0px;display: inline-block;'><li class='button secondary expand'><a>Online filters</a><ul class='sub_menu hover' style='width: 100%; visibility: hidden; position: absolute; top: 100%; left: 0px; color: rgb(51, 51, 51); background-color: rgb(51, 51, 51); margin-left:0px; list-style-type: none !important'><li class='' onclick='toggleOffline(false)'><a>Hide offline</a></li><li class='' onclick='toggleOffline(true)'><a>Show offline</a></li><li class='' onclick='toggleOffline(\"top\")'><a>Online top</a></li><li class='' onclick='toggleOffline(\"reset\")'><a>Reset order</a></li></ul></li></ul>");
 $("[class^=search-results-block]").prepend("<a class='button secondary expand' onclick='toggleStored()' style='width:25%'>Stored Items</a>");
 $("[id^=mid-table").hide();
