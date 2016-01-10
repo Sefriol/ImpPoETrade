@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            ImPoeTrade
 // @namespace       https://github.com/Sefriol/ImpPoETrade/wiki/Improved-PoE-Trade
-// @version         1.0.2
+// @version         1.0.3
 // @description     Script provides small improvements to poe.trade community website
 // @author          Sefriol
 // @match           http://tampermonkey.net/index.php?ext=dhdg
@@ -152,7 +152,7 @@ function removeItem(item) {
 }
 
 $( document ).ajaxComplete(function() {
-  if ($("[class=search-results-block]").find("[class^=search-results]").last().find("[id^=item-container]").last().find("[id^=button-remove]").length < 0) {
+  if ($("[class=search-results-block]").find("[class^=search-results]").last().find("[id^=item-container]").last().find("[id^=button-remove]").length == 0) {
     $("[id^=item-container]").find('[class^=first-cell]').append("<a id='button-remove' class='button secondary expand' onclick='itemHider(this);' style='margin:0;'>Remove</a>");
     $("[id^=item-container]").find('[class^=table-stats]').append("<a id='button-add-storage'class='button secondary expand' onclick='addItem(this);' style='margin:0; width:50%'>Add to Storage</a>");
   }
